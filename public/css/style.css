@@ -197,6 +197,12 @@ main {
 	color: #fff;
 }
 
+.msg{
+	width: 100%;
+	text-align: center;
+	margin-top: 10px;
+}
+
 /*notice*/
 .notice {
 	width: 100%;

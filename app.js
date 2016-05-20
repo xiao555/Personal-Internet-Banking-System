@@ -9,7 +9,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/index');
-var users = require('./routes/users');
+//var users = require('./routes/users');
 var app = express();
 
 // view engine setup
@@ -23,11 +23,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
-  secret: 'bank',
-  key: 'bank',
+  secret: '121bank',
+  key: '121bank',
   cookie:  {maxAge: 1000 * 60 * 60 * 24 * 30},
   Store : new MongoStore({
-    url: 'mongodb://localhost/bank'
+    url: 'mongodb://localhost/121bank'
   })
 }))
 app.use(flash());
@@ -35,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', routes);
-app.use('/users', users);
+//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

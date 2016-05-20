@@ -35,27 +35,32 @@
                 <li class="li-title">用户名：</li>
                 <li class="input">
                   <p class="contact-input">
-                    <input type="text" name="name" value="">
+                    <input type="text" id="name" name="name" value="">
                   </p>
                 </li>
                 <li class="li-title">密码：</li>
                 <li class="input">
                   <p class="contact-input">
-                    <input type="password" name="name" value="">
+                    <input type="password" id="password" name="name" value="">
                   </p>
                 </li>
                 <li class="li-title">验证码：</li>
                 <li class="input clear">
                   <p class="contact-input captcha">
-                    <input type="text" id="input-captcha" maxlength="4">
+                    <input type="text" id="input-captcha" name="captcha" value="" maxlength="4">
                   </p>
                   <a class="captcha-area"><img class="captcha-png" src="/captcha.png" />看不清楚？</a>
                 </li>
                 <li class="input">
-                  <input type="button" class="login-btn" name="login" value="登录">
+                  <input type="button" class="login-btn" id="login" name="login" value="登录">
                 </li>
                 <li class="li-title">
                   <a class="to-reg" href="/register">还没注册？</a>
+                </li>
+                <li>
+          				<% if (error) { %>
+          				  <div class="msg"><%= error %> </div>
+          				<% } %>
                 </li>
               </ul>
             </div>
@@ -79,7 +84,8 @@
     </footer>
     <!-- Jquery -->
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-	<script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>
