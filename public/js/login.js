@@ -33,7 +33,7 @@ $(document).ready(function(){
       success:function(data,status) {
         if(status == 'success') {
           console.log("success");
-          location.href='user';
+          location.href='/user';
         }
       },
       error:function(data,status,e) {

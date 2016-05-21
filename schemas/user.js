@@ -15,12 +15,13 @@ UserSchema.statics = {
       .exec(cb)
   },
   findOne: function(val, cb) {
-    console.log("find One");
     this.find({"name": val},function(err, doc) {
       if(err) return cb(err);
       if(doc) {
-        return cd(null, doc);
+        cb(null, doc[0]);
       }
     })
   }
 }
+
+module.exports = UserSchema

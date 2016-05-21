@@ -6,5 +6,12 @@ db.on('error', function(err) {
 
 var UserSchema = require('../schemas/user')
 var User = db.model('User',UserSchema)
+User.fetch(function(err, users) {
+  if (users == 0) {
+    console.log(err);
+  } else {
+    console.log(users);
+  }
+})
 
 module.exports = User

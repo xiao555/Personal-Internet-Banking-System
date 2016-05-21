@@ -5,15 +5,24 @@ var User = require('../models/user');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  if(req.session.error) {
+  if(req.session.success) {
+    var success = req.session.success;
+    req.session.success = "";
+    console.log("success message");
+    res.render('index', {
+      message: success
+    })
+  } else if(req.session.error) {
     var error = req.session.error;
     req.session.error = "";
+    console.log("error message");
     res.render('index', {
-      error: error
+      message: error
    });
  } else {
+   console.log("no message");
    res.render('index', {
-     error: "",
+     message: "",
    });
  }
 });
@@ -35,23 +44,27 @@ router.post('/', function(req, res, next) {
       console.log("ok");
       res.send(404);
     } else {
+      console.log("find");
+      console.log(doc);
       user.name = doc.name;
       user.password = doc.password;
+      console.log(_password);
+      console.log(user);
+      if(_name == user.name&&_password == user.password) {
+        console.log(_captcha + " " + req.session.checkcode);
+        if(_captcha == req.session.checkcode){
+          req.session.user = user;
+          res.send(200);
+        } else {
+          req.session.error = "验证码错误";
+          res.send(404);
+        }
+      } else {
+        req.session.error = "密码不正确";
+        res.send(404);
+      }
     }
   });
-  console.log("confirm");
-  if(_name == user.name&&_password == _password) {
-    if(_captcha == req.session.checkcode){
-      req.session.user = user;
-      res.redirect('/user');
-    } else {
-      req.session.error = "验证码错误";
-      res.send(404);
-    }
-  } else {
-    req.session.error = "密码不正确";
-    res.send(404);
-  }
 })
 
 // 获取登录验证码
@@ -90,12 +103,12 @@ router.get('/reg-captcha.png',function(req, res, next) {
 })
 // 用户页
 router.get('/user', function(req, res, next) {
-  User.findOne(name, req.session.user.name, function(err,doc) {
+  User.findOne(req.session.user.name, function(err,doc) {
     if (doc == 0) {
       req.session.error = "该用户未注册";
       res.redirect('/');
     } else {
-      res.render('user',doc[0]);
+      res.render('user',{user: doc});
     }
   })
 })
@@ -122,7 +135,20 @@ router.post('/register', function(req, res, next) {
       _trueName = req.body.trueName,
       _captcha = req.body.captcha;
   if(_captcha == req.session.regcheckcode) {
-    res.redirect('/');
+    var user = new User;
+    user.cardID = _cardID;
+    user.name = _name;
+    user.password = _password;
+    user.id = _id;
+    user.trueName = _trueName;
+    user.save(function(err) {
+				if (err) throw err;
+				else {
+          console.log("注册成功");
+					req.session.success = "注册成功";
+					return res.redirect('/');
+				}
+				});
   } else {
     req.session.error = "验证码错误";
     res.send(404);

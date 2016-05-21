@@ -1,12 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
-    <title>121银行个人网银</title>
+  	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>121银行网上银行</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
   </head>
   <body>
-<p>
-<%=name %>
-</p>
+    <header>
+      <div class="inner-header clear">
+        
+        <div class="header-name">
+          <div class="title">
+            121银行
+          </div>
+          <div class="title-dec">
+            您的财富管理银行
+          </div>
+        </div>
+        <div class="title-e">
+          个人网上银行
+        </div>
+        <div class="user">
+          <div class="wel">
+            <%=user.name %>,您好！
+          </div>
+          <a href="/">【安全退出】</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="inner-main clear">
+        <div class="sidebar">
+          <div class="user-img">
+            <img src="/img/head.jpg" alt="" />
+          </div>
+          <div class="user-name">
+            <%=user.trueName %>
+          </div>
+          <div class="sidebar-fuc">
+            <ul>
+              <li>账户查询</li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+        <div class="content">
+
+        </div>
+      </div>
+    </main>
+    <footer>
+      <span>121银行版权所有，未经许可不得转载，联系电话：12345 @2016 </span>
+    </footer>
+    <!-- Jquery -->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/js/register.js"></script>
   </body>
 </html>
