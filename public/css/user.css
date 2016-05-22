@@ -35,7 +35,18 @@ header {
   top: 50%;
   transform: translateY(-50%);
 }
+.user a {
+  color: #fff;
+  font-size: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
 
+.user a:hover {
+  color: #f71026;
+}
+
+/*main*/
 .inner-main {
   width: 100%;
 }
@@ -67,24 +78,34 @@ header {
   line-height: 40px;
   text-align: center;
   background-color: #2a2e3d;
-
+  padding-top: 20px;
 }
 
 .sidebar-fuc {
-  padding-top: 50px;
+  padding-top: 20px;
   text-align: center;
   background-color:#2a2e3d;
 }
 .sidebar-fuc li {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
   margin-top: 10px;
   background-color: #2a2e3d;
+  letter-spacing: 5px;
 }
+
+/*content*/
 
 .content {
   float: left;
   background-color: #eeeeed;
   width: 80%;
+  height: 100%;
+}
+
+.content-list  {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   height: 100%;
 }
