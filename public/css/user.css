@@ -1,7 +1,23 @@
 html {
   color: #fff;
+  height: 100%;
+  overflow-y: hidden;
 }
+body {
+  color: #fff;
+  width: 80%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hidden {
+  display: none;
+}
+
 header {
+  height: 12%;
+  color: #fff;
   border-bottom: 1px solid #c7c7c7;
   background-color: #2189bf;
   background: url(/img/hjj.jpg);
@@ -47,20 +63,25 @@ header {
 }
 
 /*main*/
+main {
+  height: 80%;
+}
 .inner-main {
   width: 100%;
+  height: 100%;
 }
 
 .sidebar {
   width: 20%;
+  height: 100%;
   float: left;
-  background-color:#fff;
+  background-color:#2a2e3d;
 }
 
 .user-img {
   width: 100%;
   height: 100px;
-  background-color: rgba(200,73,73,.9);
+  background-color: rgba(200,73,73,1);
 }
 
 .user-img img {
@@ -78,13 +99,14 @@ header {
   line-height: 40px;
   text-align: center;
   background-color: #2a2e3d;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .sidebar-fuc {
   padding-top: 20px;
-  text-align: center;
+  padding-left: 20px;
   background-color:#2a2e3d;
+  bottom: 0;
 }
 .sidebar-fuc li {
   height: 40px;
@@ -92,11 +114,18 @@ header {
   margin-top: 10px;
   background-color: #2a2e3d;
   letter-spacing: 5px;
+  cursor: pointer;
+}
+
+.sidebar-fuc li span{
+  margin-right: 20px;
 }
 
 /*content*/
 
 .content {
+  position: absolute;
+  left: 20%;
   float: left;
   background-color: #eeeeed;
   width: 80%;
@@ -104,8 +133,153 @@ header {
 }
 
 .content-list  {
+  display: none;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
+}
+
+.content-list[target="list0"] {
+  display: block;
+}
+
+
+/*content-lsit list0*/
+.carousel {
+  width:80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.carousel-inner .item img{
+  height: 200px;
+  width:100%;
+}
+
+.carousel-indicators,
+.carousel-control {
+  opacity: .4;
+}
+
+.news {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  color: #000;
+  margin-top: 50px;
+}
+
+.news-title {
+  text-align: center;
+  font-size: 16px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.news .item {
+  height: 30px;
+  line-height: 30px;
+  margin-left: 20%;
+}
+
+/*list1-用户信息*/
+.list1 {
+  color: #000;
+}
+
+.list-title {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+}
+table {
+  width: 50%;
+  border-spacing: 0;
+  border-collapse: inherit;
+  border-left: 1px solid #c7c7c7;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+th, td {
+  border-top: 1px solid #c7c7c7;
+  border-right: 1px solid #c7c7c7;
+  padding: 5px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.contact-input {
+  border: 1px solid #c7c7c7;
+  width: 90%;
+}
+
+th {
+  width: 20%;
+}
+
+/*头像*/
+.user-head {
+  position: absolute;;
+  width: 80px;
+  top: 20px;
+  right: 20px;
+}
+
+.user-head .img-file {
+  opacity: 0;
+  position: absolute;
+  top: 99999px;
+  left: -200px;
+}
+
+.user-head a {
+  display: block;
+  margin-top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #8879f2;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+}
+
+.user-head img {
+  width: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+}
+
+.user-head button {
+  margin-top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.modifiUserMsg {
+  height: 40px;
+  width: 80px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #8879f2;
+  border: 0;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+
+/*footer*/
+footer {
+  position: absolute;
+  height: 7%;
+  margin: 0;
+  bottom: 0;
 }
