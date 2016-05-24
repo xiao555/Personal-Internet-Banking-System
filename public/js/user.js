@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  // change pages
   var openFile = function(fileUrl){
     var reader = new FileReader();
     var _this = this;
@@ -13,6 +12,7 @@ $(document).ready(function(){
       };
     };
   }
+  // change pages
   $(".sidebar-fuc li").click(function(e){
     var tar = $(this).attr('target');
     console.log(tar);
@@ -20,6 +20,7 @@ $(document).ready(function(){
     $(".content-list").css("display","none");
     $(".content-list[target="+tar+"]").css("display","block");
   });
+  //上传头像
   $(".img-file").change(function(e){
     openFile(e.target.files[0]);
   });
@@ -29,16 +30,16 @@ $(document).ready(function(){
       var extension = fileName.substring(fileName.lastIndexOf('.'),fileName.length).toLowerCase();
       if(extension == ".jpg" || extension == ".png") {
         var data = new FormData();
-        data.append('upload',$('.img-file')[0].files[0]);
+        data.append('file',$('.img-file')[0].files[0]);
         $.ajax({
-          url: 'apply/upload',
+          url: '/upload',
           type: 'POST',
           data: data,
           cache: false,
           contentType: false,
           processData: false,
           success: function(data) {
-            console.log(data);
+            location.href='/user';
           },
           error: function() {
             console.log("upload error");
@@ -50,5 +51,9 @@ $(document).ready(function(){
     } else {
       alert("未选择文件");
     }
+  })
+  //修改信息
+  $(".modifiUserMsg").click(function(e) {
+    location.href='/modifi';
   })
 })

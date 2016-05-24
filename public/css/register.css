@@ -50,12 +50,43 @@ th {
 	text-decoration: underline;
   color: #adc5df;
 }
+.mod-captcha-png {
+	margin-right: 5px;
+	height: 25px;
+	background-color: #fff;
+  border: 1px solid;
+}
+
+.mod-captcha-area {
+  margin-left: 10px;
+	display: block;
+	float: left;
+	font-size: 12px;
+  opacity: .8;
+	text-decoration: underline;
+  color: #adc5df;
+}
 
 .captcha {
   width:10%;
 }
 
 .register-btn {
+  height: 40px;
+  width: 80px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #8879f2;
+  border: 0;
+  border-radius: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 4px;
+}
+.modifi-btn {
   height: 40px;
   width: 80px;
   margin-top: 20px;

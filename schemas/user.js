@@ -6,6 +6,7 @@ var UserSchema = new mongoose.Schema({
   password: String,
   id: String,
   trueName: String,
+  headUrl: String
 })
 
 UserSchema.statics = {

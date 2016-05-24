@@ -35,7 +35,7 @@
       <div class="inner-main clear">
         <div class="sidebar">
           <div class="user-img">
-            <img src="/img/head.jpg" alt="head" />
+            <img src="/upload/<%=user.headUrl %>" alt="头像" />
           </div>
           <div class="user-name">
             <%=user.trueName %>
@@ -173,13 +173,17 @@
               </tbody>
             </table>
             <div class="user-head">
-              <img id="user-head" src="" alt="head" />
+              <img id="user-head" src="/upload/<%=user.headUrl %>" alt="head" />
               <input type="file" class="img-file" name="img" /><br>
               <a onclick="$('.img-file').click()" href="javascript:;">选择文件</a>
               <span><=500k</span>
               <button type="button" class="upload-head" name="button" >上传头像</button>
+              <% if (message) { %>
+                <div class="msg"><%= message %> </div>
+              <% } %>
             </div>
             <button type="button" class="modifiUserMsg" name="button">修改</button>
+
           </div>
           <div class="content-list" target="list2">
 
