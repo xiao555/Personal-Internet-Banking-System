@@ -2,6 +2,7 @@ var express = require('express');
 var captchapng = require('captchapng');
 var router = express.Router();
 var User = require('../models/user');
+var formidable = require('formidable');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
