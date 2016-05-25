@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  //刷新验证码
   $('.captcha-area').click(function(e){
     $.ajax({
       type: 'GET',
@@ -16,7 +17,19 @@ $(document).ready(function(){
     })
     $('.captcha-png').attr("src","/captcha.png");
   });
-  $('#login').click(function(e){
+  //登录
+  $("#input-captcha").keyup(function(e){
+    if(e.keyCode == 13) {
+      console.log("commit");
+      commit();
+    }
+  })
+
+  $("#login").click(function(){
+    console.log("commit");
+    commit();
+  })
+  var commit = function(e){
     var name = $('#name').val(),
         password = $('#password').val(),
         captcha = $('#input-captcha').val();
@@ -43,5 +56,5 @@ $(document).ready(function(){
         }
       }
     })
-  })
+  }
 });

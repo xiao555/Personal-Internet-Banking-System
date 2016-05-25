@@ -11,6 +11,10 @@ var MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/index');
 //var users = require('./routes/users');
 var app = express();
+//有一个跨域的问题
+//http://bbs.csdn.net/topics/390412931
+//本程序中加上跨域的话会出现首页只有html代码
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

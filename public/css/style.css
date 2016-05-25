@@ -10,7 +10,6 @@ Designed By xiao555
 
 html {
 	overflow-y: scroll;
-	height: 100%;
 }
 body {
 	height: 100%;
@@ -239,11 +238,10 @@ main {
 
 /*footer*/
 footer {
-	position: absolute;
+	position: relative;;
 	bottom: 0;
 	margin-top: 20px;
 	height: 50px;
-	bottom: 0;
 	width: 100%;
 	text-align: center;
 	background-color: #e6e3fa;

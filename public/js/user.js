@@ -1,4 +1,33 @@
 $(document).ready(function(){
+  console.log(document.referrer);
+  //检测登录 PS:这个请求会在登出后点击后退是服务器端接收一个get /user的请求？？
+  $.ajax({
+    url: '/user',
+    type: 'POST',
+    success: function(data) {
+      console.log(data.success);
+    },
+    error: function(data) {
+      console.log("未登录");
+      console.log(data.error);
+    //  location.href='/';
+    }
+  })
+  //logout
+  $('.logout').click(function(e) {
+    $.ajax({
+      url: '/logout',
+      type: 'POST',
+      success: function(data) {
+        console.log("ok");
+        location.href = '/';
+      },
+      error: function() {
+        console.log("error");
+      }
+    })
+  })
+
   var openFile = function(fileUrl){
     var reader = new FileReader();
     var _this = this;

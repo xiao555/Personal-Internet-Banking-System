@@ -8,6 +8,9 @@ var fs = require('fs');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  if(req.session.user) {
+    req.session.user = "";
+  }
   if(req.session.success) {
     var success = req.session.success;
     req.session.success = "";
@@ -41,7 +44,7 @@ router.post('/', function(req, res, next) {
       _captcha = req.body.captcha;
   console.log(_name + " " + _password　+ " " + _captcha);
   User.findOne(_name, function(err, doc) {
-    if(doc == '' ) {
+    if(!doc) {
       console.log("user not find");
       req.session.error = "该用户未注册";
       console.log("ok");
@@ -57,17 +60,30 @@ router.post('/', function(req, res, next) {
         console.log(_captcha + " " + req.session.checkcode);
         if(_captcha == req.session.checkcode){
           req.session.user = user;
-          res.send(200);
+          res.json({success: '登陆成功'});
+          console.log("登陆成功");
         } else {
           req.session.error = "验证码错误";
+//          res.json({error: '验证码错误'});
+          console.log("验证码错误");
           res.send(404);
         }
       } else {
         req.session.error = "密码不正确";
+//        res.json({error: '密码不正确'});
+        console.log("密码不正确");
         res.send(404);
       }
     }
   });
+})
+
+//登出
+router.post('/logout', function(req, res, next) {
+  console.log(req.session.user);
+  req.session.user = null;
+  console.log(req.session.user);
+  res.send(200);
 })
 
 // 获取登录验证码
@@ -121,8 +137,28 @@ router.get('/mod-captcha.png',function(req, res, next) {
         });
         res.end(imgbase64);
 })
+
+//验证登录
+router.post('/user', function(req, res, next) {
+  console.log(req.session.user);
+  if(req.session.user == null) {
+    console.log("未登录");
+    console.log(req.session.user);
+    return res.json({error: '未登录'});
+  } else {
+    console.log("已登录");
+    console.log(req.session.user);
+    return res.json({success: '已登录'});
+  }
+})
+
 // 用户页
 router.get('/user', function(req, res, next) {
+  if(!req.session.user) {
+    req.session.error = "请先登录";
+    console.log("请先登录");
+    return res.redirect('/');
+  }
   User.findOne(req.session.user.name, function(err,doc) {
     if (doc == 0) {
       req.session.error = "该用户未注册";
@@ -144,6 +180,8 @@ router.get('/user', function(req, res, next) {
     }
   })
 })
+
+
 
 router.get('/register', function(req, res, next) {
   if(req.session.error) {
