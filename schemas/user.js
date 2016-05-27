@@ -1,12 +1,14 @@
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
-  cardID: String,
+  cardID: Array,
   name: String,
   password: String,
   id: String,
   trueName: String,
-  headUrl: String
+  headUrl: String,
+  balance: Number,
+  regDate: String
 })
 
 UserSchema.statics = {

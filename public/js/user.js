@@ -8,9 +8,9 @@ $(document).ready(function(){
       console.log(data.success);
     },
     error: function(data) {
-      console.log("未登录");
       console.log(data.error);
-    //  location.href='/';
+      alert("未登录");
+      //location.href='/';
     }
   })
   //logout
@@ -84,5 +84,22 @@ $(document).ready(function(){
   //修改信息
   $(".modifiUserMsg").click(function(e) {
     location.href='/modifi';
+  })
+  //添加其他银行卡
+  $(".addCard").click(function(e) {
+    location.href='/addCard';
+  })
+  //删除账户
+  $(".delUser").click(function(e) {
+    $.ajax({
+      type: 'DELETE',
+      url: '/delUser',
+      success: function(data) {
+        location.href='/';
+      },
+      error: function(dara) {
+        alert('error');
+      }
+    })
   })
 })

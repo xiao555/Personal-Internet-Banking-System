@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>121银行网上银行</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/register.css">
+  </head>
+  <body>
+    <header>
+      <div class="inner-header clear">
+        <img src="/img/icon.png" alt="icon" />
+        <div class="header-name">
+          <div class="title">
+            121银行
+          </div>
+          <div class="title-dec">
+            您的财富管理银行
+          </div>
+        </div>
+        <div class="title-e">
+          个人网上银行
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="inner-main">
+        <div class="register">
+          <div class="register-title">
+            添加其他银行卡
+          </div>
+          <div class="register-body">
+            <table>
+              <tbody>
+                <tr>
+                  <th>银行卡号：</th>
+                  <td>
+                    <p class="contact-input">
+                      <input type="text" name="cardID" value="">
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <% if (message) { %>
+              <div class="msg"><%= message %> </div>
+            <% } %>
+            <button type="button" class="button add-btn" name="button">确认添加</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <span>121银行版权所有，未经许可不得转载，联系电话：12345 @2016 </span>
+    </footer>
+    <!-- Jquery -->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/js/addCard.js"></script>
+  </body>
+</html>

@@ -5,6 +5,18 @@ var User = require('../models/user');
 var formidable = require('formidable');
 var uuid = require('node-uuid');
 var fs = require('fs');
+var moment = require('../public/js/moment');
+
+var usersList = [],
+    idList = [],
+    cardList = [];
+User.fetch(function(doc) {
+  for (item in doc) {
+    usersList.push(item.name);
+    idList.push()
+  }
+})
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -76,7 +88,7 @@ router.post('/', function(req, res, next) {
       }
     }
   });
-})
+})//上面的验证返回信息有待完善
 
 //登出
 router.post('/logout', function(req, res, next) {
@@ -155,9 +167,12 @@ router.post('/user', function(req, res, next) {
 // 用户页
 router.get('/user', function(req, res, next) {
   if(!req.session.user) {
-    req.session.error = "请先登录";
     console.log("请先登录");
-    return res.redirect('/');
+    var message = "请先登录";
+    res.render('error',{
+      message: message,
+      error: {}
+    });
   }
   User.findOne(req.session.user.name, function(err,doc) {
     if (doc == 0) {
@@ -203,7 +218,8 @@ router.post('/register', function(req, res, next) {
       _password = req.body.password,
       _id = req.body.id,
       _trueName = req.body.trueName,
-      _captcha = req.body.captcha;
+      _captcha = req.body.captcha,
+      _regDate = moment().format('L'); //01/01/2016
   if(_captcha == req.session.regcheckcode) {
     var user = new User;
     user.cardID = _cardID;
@@ -211,6 +227,8 @@ router.post('/register', function(req, res, next) {
     user.password = _password;
     user.id = _id;
     user.trueName = _trueName;
+    user.regDate = _regDate;
+    user.balance = 10000;
     user.save(function(err) {
 				if (err) throw err;
 				else {
@@ -323,6 +341,75 @@ router.post('/modifi', function(req, res, next) {
     req.session.error = "验证码错误";
     res.send(404);
   }
+})
+
+router.get('/addCard', function(req, res, next) {
+  User.findOne(req.session.user.name, function(err,doc) {
+    if (doc == 0) {
+      req.session.error = "该用户未注册";
+      res.redirect('/');
+    } else {
+      if(req.session.error) {
+        var message = req.session.error;
+        req.session.error = "";
+        res.render('addCard',{
+          user: doc,
+          message: message
+        });
+      } else {
+        res.render('addCard',{
+          user: doc,
+          message: ""
+        });
+      }
+    }
+  })
+})
+
+router.post('/addCard', function(req, res ,next) {
+  var _cardID = req.body.cardID;
+  console.log(_cardID);
+  User.findOne(req.session.user.name, function(err,doc) {
+    if (doc == 0) {
+      req.session.error = "该用户未注册";
+      res.redirect('/');
+    } else {
+      console.log(req.session.error);
+      for( cardID in doc.cardID) {
+        if(cardID == _cardID) req.session.error = "该卡已绑定";
+      }
+      if(req.session.error) {
+        res.json({
+          error: req.session.error
+        });
+      } else {
+        doc.cardID.push(_cardID);
+        doc.save(function(err) {
+    			if (err) throw err;
+    			else {
+            console.log("添加成功");
+  					req.session.success = "添加成功";
+    				res.json({
+              success: req.session.success
+            });
+    			}
+    	  });
+      }
+    }
+  })
+})
+
+router.delete('/delUser', function(req, res, next) {
+  User.remove({name: req.session.user.name},function(err, doc){
+			if(err) {
+				console.log(err);
+				res.json({error: 0});
+			} else {
+        console.log("删除成功");
+        req.session.success = "删除成功";
+				res.json({success: 0});
+			}
+		})
 })
 
 

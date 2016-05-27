@@ -3,6 +3,7 @@
   <head>
   	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>121银行网上银行</title>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/user.css">
@@ -44,6 +45,7 @@
               <li target="list0"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</li>
               <li target="list1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人信息</li>
               <li target="list2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>账户查询</li>
+              <li target="list3"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>转账</li>
               <li></li>
               <li></li>
               <li></li>
@@ -181,12 +183,88 @@
                 <div class="msg"><%= message %> </div>
               <% } %>
             </div>
-            <button type="button" class="modifiUserMsg" name="button">修改</button>
-
+            <button type="button" class="button modifiUserMsg" name="button">修改</button>
+            <button type="button" class="button addCard" name="button">添加其他银行卡</button>
+            <button type="button" class="button" name="button" data-toggle="modal"
+   data-target="#myModal">删除账户</button>
           </div>
           <div class="content-list" target="list2">
+            <div class="bal-query">
+              <table>
+                <div class="bal-title">
+                  银行卡账户
+                </div>
+                <thead>
+                  <tr>
+                    <td>账号</td>
+                    <td>户名</td>
+                    <td>别名</td>
+                    <td>余额</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%=user.cardID %></td>
+                    <td><%=user.trueName %></td>
+                    <td><%=user.name %></td>
+                    <td><%=user.balance %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="content-list" target="list3">
+            <div class="transfer-in">
+              <div class="card">
+                <table>
+                  <tbody>
+                    <th>
+                      请选择卡号：
+                    </th>
+                    <td>
+                      <label>
+                        <select class="" name="">
+                          <option value="option">option</option>
+                        </select>
+                      </label>
+                    </td>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-list" target="list4">
 
           </div>
+
+          <!-- 模态框（Modal） -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-dialog">
+                <div class="modal-content">
+                   <div class="modal-header">
+                      <button type="button" class="close"
+                         data-dismiss="modal" aria-hidden="true">
+                            &times;
+                      </button>
+                      <h4 class="modal-title" id="myModalLabel">
+                         系统消息
+                      </h4>
+                   </div>
+                   <div class="modal-body">
+                      确认要删除账户吗？
+                   </div>
+                   <div class="modal-footer">
+                      <button type="button" class="btn btn-default"
+                         data-dismiss="modal">关闭
+                      </button>
+                      <button type="button" class="red btn btn-primary delUser">
+                         删除
+                      </button>
+                   </div>
+                </div><!-- /.modal-content -->
+          </div><!-- /.modal -->
         </div>
       </div>
     </main>

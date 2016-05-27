@@ -260,22 +260,50 @@ th {
   transform: translateX(-50%);
 }
 
-.modifiUserMsg {
+.button {
   height: 40px;
-  width: 80px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  width: auto;
+  padding: 10px 10px 10px 10px;
+  margin: 20px 20px 20px 20px;
   background-color: #8879f2;
   border: 0;
   border-radius: 5px;
-  left: 50%;
-  transform: translateX(-50%);
+  /*left: 50%;
+  transform: translateX(-50%);*/
+  float: left;
   cursor: pointer;
   color: #fff;
   font-size: 16px;
   letter-spacing: 4px;
 }
 
+/*list2*/
+.content-list {
+  color: #000;
+}
+
+.bal-query {
+  width: 100%;
+}
+
+.bal-query table {
+  width: 100%;
+}
+
+.bal-title {
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+
+}
+/*modal*/
+.modal {
+  color: #000;
+}
+
+.modal .red {
+  background-color: red;
+}
 /*footer*/
 footer {
   position: absolute;
