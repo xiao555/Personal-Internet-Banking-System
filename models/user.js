@@ -10,6 +10,7 @@ User.fetch(function(err, users) {
   if (users == 0) {
     console.log(err);
   } else {
+    console.log("users:");
     console.log(users);
   }
 })

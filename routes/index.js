@@ -2,20 +2,34 @@ var express = require('express');
 var captchapng = require('captchapng');
 var router = express.Router();
 var User = require('../models/user');
+var Card = require('../models/card');
 var formidable = require('formidable');
 var uuid = require('node-uuid');
 var fs = require('fs');
 var moment = require('../public/js/moment');
 
-var usersList = [],
-    idList = [],
-    cardList = [];
+var usersList = [],//用户
+    idList = [],//身份证号
+    cardList = [];//银行卡号
 User.fetch(function(doc) {
   for (item in doc) {
     usersList.push(item.name);
-    idList.push()
+    idList.push(item.id);
+    for ( cardItem in item.cardID) {
+      cardList.push(cardItem);
+    }
   }
 })
+console.log("card:");
+Card.fetch(function(doc) {
+  for (var item in doc) {
+    console.log(item.cardID);
+  }
+})
+console.log("user:");
+console.log(usersList);
+console.log(idList);
+console.log(cardList);
 
 
 /* GET home page. */
@@ -197,7 +211,7 @@ router.get('/user', function(req, res, next) {
 })
 
 
-
+//注册页
 router.get('/register', function(req, res, next) {
   if(req.session.error) {
     var error = req.session.error;
@@ -211,7 +225,7 @@ router.get('/register', function(req, res, next) {
    });
  }
 })
-
+//处理注册
 router.post('/register', function(req, res, next) {
   var _cardID = req.body.cardID,
       _name = req.body.name,
@@ -220,7 +234,29 @@ router.post('/register', function(req, res, next) {
       _trueName = req.body.trueName,
       _captcha = req.body.captcha,
       _regDate = moment().format('L'); //01/01/2016
+  console.log("注册：" + _name);
+  //检验是否已经存在
+  var error = [];
+  usersList.forEach(function(item,index,array) {
+    if(item == _name)  error.push('用户名已存在');
+  });
+
+  cardList.forEach(function(item,index,array) {
+    if(item == _cardID) error.push('该卡已注册');
+  });
+
+  idList.forEach(function(item, index, array) {
+    if(item == _id) error.push('该身份证已注册');
+  })
+  console.log(error);
+  if(error != 0) {
+    return res.json({
+      error: error
+    })
+  }
+  console.log("验证通过");
   if(_captcha == req.session.regcheckcode) {
+
     var user = new User;
     user.cardID = _cardID;
     user.name = _name;
@@ -232,9 +268,20 @@ router.post('/register', function(req, res, next) {
     user.save(function(err) {
 				if (err) throw err;
 				else {
-          console.log("注册成功");
-					req.session.success = "注册成功";
-					return res.redirect('/');
+          var card = new Card;
+          card.cardID = _cardID;
+          card.name = _name;
+          card.balance = 10000;
+          card.save(function(err) {
+            if (err) throw err;
+            else {
+              console.log("save card success!");
+              console.log("注册成功");
+    					req.session.success = "注册成功";
+    					return res.redirect('/');
+            }
+          })
+
 				}
 				});
   } else {
@@ -378,6 +425,11 @@ router.post('/addCard', function(req, res ,next) {
       for( cardID in doc.cardID) {
         if(cardID == _cardID) req.session.error = "该卡已绑定";
       }
+      Card.findOne(_cardID, function(err, doc) {
+        if(doc) {
+          req.session.error = "该卡已绑定"
+        }
+      })
       if(req.session.error) {
         res.json({
           error: req.session.error
@@ -387,11 +439,21 @@ router.post('/addCard', function(req, res ,next) {
         doc.save(function(err) {
     			if (err) throw err;
     			else {
-            console.log("添加成功");
-  					req.session.success = "添加成功";
-    				res.json({
-              success: req.session.success
-            });
+            var card = new Card;
+            card.cardID = _cardID;
+            card.name = req.session.user.name;
+            card.balance = 10000;
+            card.save(function(err) {
+              if (err) throw err;
+              else {
+                console.log("save card success!");
+                console.log("添加成功");
+      					req.session.success = "添加成功";
+        				res.json({
+                  success: req.session.success
+                });
+              }
+            })
     			}
     	  });
       }
@@ -405,9 +467,16 @@ router.delete('/delUser', function(req, res, next) {
 				console.log(err);
 				res.json({error: 0});
 			} else {
-        console.log("删除成功");
-        req.session.success = "删除成功";
-				res.json({success: 0});
+        Card.remove({name: req.session.user.name},function(err, doc) {
+          if(err) {
+            console.log(err);
+            res.json({error: 0});
+          } else {
+            console.log("删除成功");
+            req.session.success = "删除成功";
+    				res.json({success: 0});
+          }
+        })
 			}
 		})
 })

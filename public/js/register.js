@@ -45,7 +45,7 @@ $(document).ready(function(){
         },
         error:function(data,status,e) {
           if(status == "error") {
-            console.log("error");
+            alert("error");
             location.href='/register';
           }
         }
