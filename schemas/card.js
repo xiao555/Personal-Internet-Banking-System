@@ -19,6 +19,14 @@ CardSchema.statics = {
         cb(null, doc[0]);
       }
     })
+  },
+  findByName: function(val, cb) {
+    this.find({"name": val}, function(err, doc) {
+      if(err) return cb(err);
+      if(doc) {
+        cb(null, doc);
+      }
+    })
   }
 }
 

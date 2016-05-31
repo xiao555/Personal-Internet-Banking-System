@@ -139,14 +139,16 @@
             </div>
             <table>
               <tbody>
+                <% for(var i=0;i < cards.length;i++) { %>
                 <tr>
                   <th>银行卡号：</th>
                   <td>
                     <p class="contact-input">
-                      <input type="text" name="cardID" value="<%=user.cardID %>" disabled="disabled">
+                      <input type="text" name="cardID" value="<%=cards[i].cardID %>" disabled="disabled">
                     </p>
                   </td>
                 </tr>
+                <% } %>
                 <tr>
                   <th>用户名：</th>
                   <td>
@@ -203,12 +205,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td><%=user.cardID %></td>
-                    <td><%=user.trueName %></td>
-                    <td><%=user.name %></td>
-                    <td><%=user.balance %></td>
-                  </tr>
+                  <% for(var i=0;i < cards.length;i++) { %>
+                    <tr>
+                      <td><%=cards[i].cardID %></td>
+                      <td><%=user.trueName %></td>
+                      <td><%=user.name %></td>
+                      <td><%=cards[i].balance %></td>
+                    </tr>
+                  <% } %>
                 </tbody>
               </table>
             </div>
@@ -224,10 +228,37 @@
                     <td>
                       <label>
                         <select class="" name="">
-                          <option value="option">option</option>
+                          <% for(var i = 0;i < cards.length;i++) { %>
+                          <option value="option"><%=cards[i].cardID %></option>
+                          <% } %>
                         </select>
                       </label>
                     </td>
+                  </tbody>
+                </table>
+                <table>
+                  <thead>
+                    <th>
+                      付款人信息：
+                    </th>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>转出卡号</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>户名</th>
+                      <td><%=user.trueName %></td>
+                    </tr>
+                    <tr>
+                      <th>可用余额</th>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <th>转账金额</th>
+                      <td></td>
+                    </tr>
                   </tbody>
                 </table>
               </div>

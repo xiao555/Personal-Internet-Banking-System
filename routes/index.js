@@ -196,15 +196,28 @@ router.get('/user', function(req, res, next) {
       if(req.session.success) {
         var message = req.session.success;
         req.session.success = "";
-        res.render('user',{
-          user: doc,
-          message: message
-        });
+        Card.findByName(req.session.user.name, function(err, cards) {
+          if(err) throw(err);
+          else {
+            res.render('user',{
+              user: doc,
+              cards: cards,
+              message: message
+            });
+          }
+        })
       } else {
-        res.render('user',{
-          user: doc,
-          message: ""
-        });
+        Card.findByName(req.session.user.name, function(err, cards) {
+          if(err) throw(err);
+          else {
+            console.log(cards);
+            res.render('user',{
+              user: doc,
+              cards: cards,
+              message: ""
+            });
+          }
+        })
       }
     }
   })
