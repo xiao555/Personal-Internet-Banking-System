@@ -220,14 +220,14 @@
           <div class="content-list" target="list3">
             <div class="transfer-in">
               <div class="card">
-                <table>
+                <table class="full-table">
                   <tbody>
                     <th>
                       请选择卡号：
                     </th>
                     <td>
                       <label>
-                        <select class="" name="">
+                        <select class="selCardId" name="">
                           <% for(var i = 0;i < cards.length;i++) { %>
                           <option value="option"><%=cards[i].cardID %></option>
                           <% } %>
@@ -236,16 +236,16 @@
                     </td>
                   </tbody>
                 </table>
-                <table>
+                <table class="full-table">
                   <thead>
-                    <th>
-                      付款人信息：
-                    </th>
+                    <div class="">
+                      付款人信息
+                    </div>
                   </thead>
                   <tbody>
                     <tr>
                       <th>转出卡号</th>
-                      <td></td>
+                      <td id="cardID"><%=cards[0].cardID %></td>
                     </tr>
                     <tr>
                       <th>户名</th>
@@ -253,14 +253,37 @@
                     </tr>
                     <tr>
                       <th>可用余额</th>
-                      <td></td>
+                      <td id="balance"><%=cards[0].balance %></td>
                     </tr>
                     <tr>
                       <th>转账金额</th>
-                      <td></td>
+                      <td>
+                        <input type="text" name="transferNum" value=""></td>
                     </tr>
                   </tbody>
                 </table>
+                <table class="full-table">
+                  <thead>
+                    <div class="">
+                      收款人信息
+                    </div>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>收款卡号</th>
+                      <td id="cardID">
+                        <input type="text" name="transferID" value=""></td>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>户名</th>
+                      <td>
+                        <input type="text" name="transferName" value=""></td>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <button class="button transfer" type="button" name="submit">转账</button>
               </div>
             </div>
           </div>
@@ -307,5 +330,26 @@
 	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
     <script src="/js/user.js"></script>
+    <script type="text/javascript">
+      var cards = [];
+      var j = 0;
+      <% for(var i =0;i < cards.length;i++) { %>
+        cards[j] = new Object();
+        cards[j].cardID = "<%=cards[i].cardID %>";
+        cards[j].balance = "<%=cards[i].balance %>";
+        j++;
+      <% } %>
+      console.log(cards);
+      $(".selCardId").change(function(e) {
+        var _cardID = $(".selCardId").find("option:selected").text();
+        console.log(_cardID);
+        for(var i = 0;i < cards.length;i++) {
+          if(cards[i].cardID == _cardID) {
+            $("#cardID").text(cards[i].cardID);
+            $("#balance").text(cards[i].balance);
+          }
+        }
+      })
+    </script>
   </body>
 </html>

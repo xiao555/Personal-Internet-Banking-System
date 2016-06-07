@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  console.log(document.referrer);
+
+
   //检测登录 PS:这个请求会在登出后点击后退是服务器端接收一个get /user的请求？？
   $.ajax({
     url: '/user',
@@ -44,8 +45,8 @@ $(document).ready(function(){
   // change pages
   $(".sidebar-fuc li").click(function(e){
     var tar = $(this).attr('target');
-    console.log(tar);
-    console.log($(".content-list[target="+tar+"]"));
+    //console.log(tar);
+    //console.log($(".content-list[target="+tar+"]"));
     $(".content-list").css("display","none");
     $(".content-list[target="+tar+"]").css("display","block");
   });
@@ -101,5 +102,42 @@ $(document).ready(function(){
         alert('error');
       }
     })
+  })
+  //转账
+  $(".transfer").click(function(e) {
+    var fromID = $("#cardID").text(),
+        transNum = $("[name='transferNum']").val(),
+        fromIDBal = $("#balance").text(),
+        toID = $("[name='transferID']").val(),
+        toName = $("[name='transferName']").val();
+    console.log(transNum);
+    console.log(toID);
+    if(toID||toName||transNum) {
+      if(transNum > fromIDBal) {
+        console.log(transNum);
+        console.log(fromIDBal);
+        alert("你还想转多少？");
+      } else {
+        var data = {
+          fromID: fromID,
+          transNum: transNum,
+          toID: toID,
+          toName: toName
+        };
+        $.ajax({
+          url: '/transfer',
+          type: 'POST',
+          data: data,
+          success: function(data) {
+            location.href='/user';
+          },
+          error: function(data) {
+            alert(data);
+          }
+        })
+      }
+    } else {
+      alert("请填写完整！");
+    }
   })
 })

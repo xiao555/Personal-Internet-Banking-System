@@ -63,7 +63,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var user = {
     name: "",
-    password: ""
+    password: "",
+    trueName: ""
   };
   var _name = req.body.name,
       _password = req.body.password,
@@ -80,6 +81,7 @@ router.post('/', function(req, res, next) {
       console.log(doc);
       user.name = doc.name;
       user.password = doc.password;
+      user.trueName = doc.trueName;
       console.log(_password);
       console.log(user);
       if(_name == user.name&&_password == user.password) {
@@ -196,7 +198,7 @@ router.get('/user', function(req, res, next) {
       if(req.session.success) {
         var message = req.session.success;
         req.session.success = "";
-        Card.findByName(req.session.user.name, function(err, cards) {
+        Card.findByName(req.session.user.trueName, function(err, cards) {
           if(err) throw(err);
           else {
             res.render('user',{
@@ -207,7 +209,8 @@ router.get('/user', function(req, res, next) {
           }
         })
       } else {
-        Card.findByName(req.session.user.name, function(err, cards) {
+        console.log(req.session.user);
+        Card.findByName(req.session.user.trueName, function(err, cards) {
           if(err) throw(err);
           else {
             console.log(cards);
@@ -283,7 +286,7 @@ router.post('/register', function(req, res, next) {
 				else {
           var card = new Card;
           card.cardID = _cardID;
-          card.name = _name;
+          card.trueName = _trueName;
           card.balance = 10000;
           card.save(function(err) {
             if (err) throw err;
@@ -454,7 +457,7 @@ router.post('/addCard', function(req, res ,next) {
     			else {
             var card = new Card;
             card.cardID = _cardID;
-            card.name = req.session.user.name;
+            card.trueName = req.session.user.trueName;
             card.balance = 10000;
             card.save(function(err) {
               if (err) throw err;
@@ -480,7 +483,7 @@ router.delete('/delUser', function(req, res, next) {
 				console.log(err);
 				res.json({error: 0});
 			} else {
-        Card.remove({name: req.session.user.name},function(err, doc) {
+        Card.remove({trueName: req.session.user.trueName},function(err, doc) {
           if(err) {
             console.log(err);
             res.json({error: 0});
@@ -492,6 +495,54 @@ router.delete('/delUser', function(req, res, next) {
         })
 			}
 		})
+})
+
+//转账
+router.post('/transfer', function(req, res, next) {
+  console.log(req.body);
+  var _fromID = req.body.fromID,
+      _transNum = req.body.transNum,
+      _toID = req.body.toID,
+      _toName = req.body.toName;
+  console.log(_toName);
+  Card.findOne(_fromID, function(err, fromcard) {
+    if(err) throw error;
+    else {
+      console.log(fromcard);
+      Card.findOne(_toID, function(err, tocard) {
+        if(err) throw error;
+        else {
+          console.log(tocard);
+          if(tocard.trueName != _toName) {
+            console.log(tocard.trueName);
+            console.log("户名与卡号不对应");
+            res.json({
+              error: "户名与卡号不对应"
+            })
+          } else {
+            fromcard.balance = fromcard.balance-parseInt(_transNum);
+            tocard.balance = tocard.balance+parseInt(_transNum);
+            console.log(fromcard.balance);
+            console.log(tocard.balance);
+            fromcard.save(function(err) {
+              if(err) throw err;
+              else {
+                tocard.save(function(err) {
+                  if(err) throw err;
+                  else {
+                    res.json({
+                      success: 0
+                    })
+                  }
+                })
+              }
+            })
+          }
+
+        }
+      })
+    }
+  })
 })
 
 

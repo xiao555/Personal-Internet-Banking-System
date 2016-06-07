@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var CardSchema = new mongoose.Schema({
   cardID: String,
   balance: Number,
-  name: String
+  trueName: String
 })
 
 CardSchema.statics = {
@@ -21,7 +21,7 @@ CardSchema.statics = {
     })
   },
   findByName: function(val, cb) {
-    this.find({"name": val}, function(err, doc) {
+    this.find({"trueName": val}, function(err, doc) {
       if(err) return cb(err);
       if(doc) {
         cb(null, doc);

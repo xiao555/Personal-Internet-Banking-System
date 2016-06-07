@@ -296,6 +296,14 @@ th {
   font-size: 16px;
 
 }
+
+.full-table {
+  width: 100%;
+}
+
+.transfer {
+  left: 20%;
+}
 /*modal*/
 .modal {
   color: #000;
@@ -304,6 +312,9 @@ th {
 .modal .red {
   background-color: red;
 }
+
+
+
 /*footer*/
 footer {
   position: absolute;
