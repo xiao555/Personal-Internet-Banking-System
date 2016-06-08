@@ -313,6 +313,10 @@ th {
   background-color: red;
 }
 
+.detail-table th {
+  width: auto;
+}
+
 
 
 /*footer*/

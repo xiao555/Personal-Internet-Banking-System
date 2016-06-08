@@ -45,12 +45,9 @@
               <li target="list0"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</li>
               <li target="list1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人信息</li>
               <li target="list2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>账户查询</li>
-              <li target="list3"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>转账</li>
-              <li target="list4"><span class="glyphicon glyphicon glyphicon-phone" aria-hidden="true"></span>手机充值</li>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+              <li target="list3"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>明细查询</li>
+              <li target="list4"><span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>转账</li>
+              <li target="list5"><span class="glyphicon glyphicon glyphicon-phone" aria-hidden="true"></span>手机充值</li>
             </ul>
           </div>
         </div>
@@ -218,7 +215,67 @@
               </table>
             </div>
           </div>
+
           <div class="content-list" target="list3">
+            <div class="inner-list">
+              <table class="full-table">
+                <tbody>
+                  <th>
+                    请选择卡号：
+                  </th>
+                  <td>
+                    <label>
+                      <select class="selCardId=detail" name="">
+                        <% for(var i = 0;i < cards.length;i++) { %>
+                        <option value="option"><%=cards[i].cardID %></option>
+                        <% } %>
+                      </select>
+                    </label>
+                  </td>
+                </tbody>
+              </table>
+              <table class="full-table detail-table">
+                <thead>
+                  <tr>
+                    <th>
+                      交易日期
+                    </th>
+                    <th>
+                      交易方式
+                    </th>
+                    <th>
+                      支出金额
+                    </th>
+                    <th>
+                      收入金额
+                    </th>
+                    <th>
+                      对方卡号
+                    </th>
+                    <th>
+                      对方户名
+                    </th>
+                    <th>
+                      余额
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="content-list" target="list4">
             <div class="transfer-in">
               <div class="card">
                 <table class="full-table">
@@ -289,7 +346,7 @@
             </div>
           </div>
 
-          <div class="content-list" target="list4">
+          <div class="content-list" target="list5">
             <div class="inner-list">
               <table class="full-table">
                 <tbody>
@@ -336,9 +393,7 @@
             </div>
           </div>
 
-          <div class="content-list" target="list5">
 
-          </div>
 
           <!-- 模态框（Modal） -->
           <div class="modal fade" id="myModal" tabindex="-1" role="dialog"

@@ -15,7 +15,6 @@ $(document).ready(function(){
     error: function(data) {
       console.log(data.error);
       alert("未登录");
-      //location.href='/';
     }
   })
   //logout

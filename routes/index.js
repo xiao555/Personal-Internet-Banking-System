@@ -3,6 +3,7 @@ var captchapng = require('captchapng');
 var router = express.Router();
 var User = require('../models/user');
 var Card = require('../models/card');
+var Detail = require('../models/detail');
 var formidable = require('formidable');
 var uuid = require('node-uuid');
 var fs = require('fs');
@@ -528,18 +529,46 @@ router.post('/transfer', function(req, res, next) {
                 tocard.save(function(err) {
                   if(err) throw err;
                   else {
-                    res.json({
-                      success: 0
-                    })
+                    var detail1 = new Detail;
+                    detail1.cardID = _fromID;
+                    detail1.date = moment().format('L');//01/01/2016
+                    detail1.method = "转账";
+                    detail1.out = parseInt(_transNum);
+                    detail1.in = 0;
+                    detail1.opCard = _toID;
+                    detail1.opName = _toName;
+                    detail1.balance = fromcard.balance;
+                    var detail2 = new Detail;
+                    detail2.cardID = _toID;
+                    detail2.date = moment().format('L');//01/01/2016
+                    detail2.method = "转账";
+                    detail2.out = 0;
+                    detail2.in = parseInt(_transNum);
+                    detail2.opCard = _fromID;
+                    detail2.opName = fromcard.trueName;
+                    detail2.balance = tocard.balance;
+                    detail1.save(function(err) {
+                      if(err) throw err;
+                      else {
+                        detail2.save(function(err) {
+                          if(err) throw err;
+                          else {
+                            res.json({
+                              success: 0
+                            })
+                          }
+                        })//save detail2
+                      }
+                    })//save detail1
                   }
-                })
+                })//save tocard
               }
-            })
+            })//save fromcard
           }
         }
-      })
+      })//find tocardID
     }
-  })
+  })//find fromID
 })
 
 router.post('/phoneRecharge', function(req, res, next) {
@@ -553,13 +582,27 @@ router.post('/phoneRecharge', function(req, res, next) {
       card.save(function(err) {
         if(err) throw err;
         else {
-          res.json({
-            success: 0
-          })
+          var detail = new Detail;
+          detail.cardID = cardID;
+          detail.date = moment().format('L');
+          detail.method = "手机充值";
+          detail.out = parseInt(money);
+          detail.in = 0;
+          detail.opCard = "";
+          detail.opName = "";
+          detail.balance = card.balance;
+          detail.save(function(err) {
+            if(err) throw err;
+            else {
+              res.json({
+                success: 0
+              })
+            }
+          })//save detail
         }
-      })
+      })//save card
     }
-  })
+  })//findOne card
 })
 
 
