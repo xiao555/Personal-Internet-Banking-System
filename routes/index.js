@@ -375,8 +375,7 @@ router.get('/modifi', function(req, res, next) {
 })
 
 router.post('/modifi', function(req, res, next) {
-  var _cardID = req.body.cardID,
-      _name = req.body.name,
+  var _name = req.body.name,
       _id = req.body.id,
       _trueName = req.body.trueName,
       _captcha = req.body.captcha;
@@ -386,7 +385,6 @@ router.post('/modifi', function(req, res, next) {
         console.log(err);
         res.send('error');
       } else {
-        user.cardID = _cardID;
         user.name = _name;
         user.id = _id;
         user.trueName = _trueName;
@@ -538,7 +536,26 @@ router.post('/transfer', function(req, res, next) {
               }
             })
           }
+        }
+      })
+    }
+  })
+})
 
+router.post('/phoneRecharge', function(req, res, next) {
+  var cardID = req.body.cardID,
+      phone = req.body.phone,
+      money = req.body.money;
+  Card.findOne(cardID, function(err, card) {
+    if(err) throw err;
+    else {
+      card.balance -= parseInt(money);
+      card.save(function(err) {
+        if(err) throw err;
+        else {
+          res.json({
+            success: 0
+          })
         }
       })
     }

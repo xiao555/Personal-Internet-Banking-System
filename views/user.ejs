@@ -292,6 +292,22 @@
           <div class="content-list" target="list4">
             <div class="inner-list">
               <table class="full-table">
+                <tbody>
+                  <th>
+                    请选择卡号：
+                  </th>
+                  <td>
+                    <label>
+                      <select class="selCardId-phone" name="">
+                        <% for(var i = 0;i < cards.length;i++) { %>
+                        <option value="option"><%=cards[i].cardID %></option>
+                        <% } %>
+                      </select>
+                    </label>
+                  </td>
+                </tbody>
+              </table>
+              <table class="full-table">
                 <thead>
                   <span>充值信息</span>
                 </thead>
@@ -314,14 +330,9 @@
                       <input type="radio" name="money" value="100">100</input>
                     </td>
                   </tr>
-                  <tr>
-                    <th>
-
-                    </th>
-                  </tr>
                 </tbody>
               </table>
-
+              <button class="button" type="button" name="phoneRecharge">充值</button>
             </div>
           </div>
 

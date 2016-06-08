@@ -34,14 +34,6 @@
             <table>
               <tbody>
                 <tr>
-                  <th>银行卡号：</th>
-                  <td>
-                    <p class="contact-input">
-                      <input type="text" name="cardID" value="<%=user.cardID %>">
-                    </p>
-                  </td>
-                </tr>
-                <tr>
                   <th>用户名：</th>
                   <td>
                     <p class="contact-input">
@@ -53,7 +45,7 @@
                   <th>身份证号：</th>
                   <td>
                     <p class="contact-input">
-                      <input type="text" name="id" value="<%=user.id %>">
+                      <input type="text" name="id" value="<%=user.id %>" maxlength="18">
                     </p>
                   </td>
                 </tr>

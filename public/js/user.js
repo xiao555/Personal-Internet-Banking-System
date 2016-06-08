@@ -1,5 +1,9 @@
 $(document).ready(function(){
-
+  // 验证手机号
+  function isPhoneNo(phone) {
+      var pattern = /^1[34578]\d{9}$/;
+      return pattern.test(phone);
+  }
 
   //检测登录 PS:这个请求会在登出后点击后退是服务器端接收一个get /user的请求？？
   $.ajax({
@@ -140,4 +144,38 @@ $(document).ready(function(){
       alert("请填写完整！");
     }
   })
+  $("[name='phoneRecharge']").click(function(e) {
+    var phone = $("[name='phoneNum']").val(),
+        cardID = $(".selCardId-phone").find("option:selected").text(),
+        money = $("input[name='money']:checked").val();
+    console.log(phone);
+    console.log(cardID);
+    console.log(money);
+    if(phone&&money&&cardID) {
+      if(isPhoneNo(phone) == false) {
+        alert("请输入正确的电话号码");
+      } else {
+        var data = {
+          cardID: cardID,
+          phone: phone,
+          money: money
+        };
+        $.ajax({
+          url: '/phoneRecharge',
+          type: 'POST',
+          data: data,
+          success: function(data) {
+            alert("充值成功");
+            location.href="/user";
+          },
+          error: function(data) {
+            alert("充值失败");
+          }
+        })//ajax
+      }
+    } else {
+      alert("请填写完整");
+    }
+  })
+
 })

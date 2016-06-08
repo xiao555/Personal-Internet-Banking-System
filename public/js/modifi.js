@@ -1,4 +1,9 @@
 $(document).ready(function(){
+  // 验证身份证
+  function isCardNo(card) {
+     var pattern = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+     return pattern.test(card);
+  };
   //刷新验证码
   $('.mod-captcha-area').click(function(e){
     $.ajax({
@@ -19,35 +24,36 @@ $(document).ready(function(){
   });
   //确认修改
   $('.modifi-btn').click(function(e){
-    var cardID = $("[name='cardID']").val(),
-        name = $("[name='name']").val(),
+    var name = $("[name='name']").val(),
         id = $("[name='id']").val(),
         trueName = $("[name='trueName']").val(),
         captcha = $("[name='captcha']").val();
-
-    var data = {
-        cardID: cardID,
-        name: name,
-        id: id,
-        trueName: trueName,
-        captcha: captcha
-      }
-    $.ajax({
-      type: 'POST',
-      url: '/modifi',
-      data: data,
-      success:function(data,status) {
-        if(status == 'success') {
-          console.log("success");
-          location.href='/';
+    if (isCardNo(id) == false) {
+      alert("请输入正确的身份证号");
+    } else {
+      var data = {
+          name: name,
+          id: id,
+          trueName: trueName,
+          captcha: captcha
         }
-      },
-      error:function(data,status,e) {
-        if(status == "error") {
-          console.log("error");
-          location.href='/modifi';
+      $.ajax({
+        type: 'POST',
+        url: '/modifi',
+        data: data,
+        success:function(data,status) {
+          if(status == 'success') {
+            console.log("success");
+            location.href='/';
+          }
+        },
+        error:function(data,status,e) {
+          if(status == "error") {
+            console.log("error");
+            location.href='/modifi';
+          }
         }
-      }
-    })
+      })
+    }
   });
 });
