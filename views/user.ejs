@@ -225,7 +225,7 @@
                   </th>
                   <td>
                     <label>
-                      <select class="selCardId=detail" name="">
+                      <select class="selCardId-detail" name="">
                         <% for(var i = 0;i < cards.length;i++) { %>
                         <option value="option"><%=cards[i].cardID %></option>
                         <% } %>
@@ -424,6 +424,11 @@
           </div><!-- /.modal -->
         </div>
       </div>
+
+      <div class="date" style="display: none;">
+        <div class="date-cardID"></div>
+      </div>
+
     </main>
     <footer>
       <span>121银行版权所有，未经许可不得转载，联系电话：12345 @2016 </span>
@@ -452,6 +457,11 @@
             $("#balance").text(cards[i].balance);
           }
         }
+      })
+      $(".sidebar-fuc li[target='list3']").click(function(e) {
+        var _cardID = $(".selCardId-detail").find("option:selected").text();
+        console.log(_cardID);
+        $(".date-cardID").text(_cardID);
       })
     </script>
   </body>

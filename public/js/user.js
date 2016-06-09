@@ -5,6 +5,27 @@ $(document).ready(function(){
       return pattern.test(phone);
   }
 
+  //Detail
+  function detail(e) {
+    var _cardID = $(".date-cardID").text();
+    console.log(_cardID);
+    var data = {
+      cardID: _cardID
+    };
+    $.ajax({
+      url: '/getDetail',
+      type: 'POST',
+      data: data,
+      success: function(data) {
+        console.log(data);
+        console.log("get detail success");
+      },
+      error: function(data) {
+        alert("get detail error");
+      }
+    })
+  }
+
   //检测登录 PS:这个请求会在登出后点击后退是服务器端接收一个get /user的请求？？
   $.ajax({
     url: '/user',
@@ -48,6 +69,7 @@ $(document).ready(function(){
   // change pages
   $(".sidebar-fuc li").click(function(e){
     var tar = $(this).attr('target');
+    if(tar == "list3") detail();
     //console.log(tar);
     //console.log($(".content-list[target="+tar+"]"));
     $(".content-list").css("display","none");
@@ -176,5 +198,6 @@ $(document).ready(function(){
       alert("请填写完整");
     }
   })
+
 
 })

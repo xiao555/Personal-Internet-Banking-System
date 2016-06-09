@@ -20,7 +20,7 @@ DetailSchema.statics = {
   findById: function(val, cb) {
     this.find({"cardID": val},function(err, docs) {
       if(err) return cb(err);
-      if(doc) {
+      if(docs) {
         cb(null, docs);
       }
     })

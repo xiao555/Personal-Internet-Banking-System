@@ -9,32 +9,32 @@ var uuid = require('node-uuid');
 var fs = require('fs');
 var moment = require('../public/js/moment');
 
-var usersList = [],//用户
-    idList = [],//身份证号
-    cardList = [];//银行卡号
-User.fetch(function(doc) {
-  for (item in doc) {
-    usersList.push(item.name);
-    idList.push(item.id);
-    for ( cardItem in item.cardID) {
-      cardList.push(cardItem);
-    }
-  }
-})
-console.log("card:");
-Card.fetch(function(doc) {
-  for (var item in doc) {
-    console.log(item.cardID);
-  }
-})
-console.log("user:");
-console.log(usersList);
-console.log(idList);
-console.log(cardList);
 
+  var usersList = [],//用户
+      idList = [],//身份证号
+      cardList = [];//银行卡号
+  User.fetch(function(err,doc) {
+    console.log(doc);
+    for(var i=0;i< doc.length;i++) {
+      console.log(doc[i]);
+      usersList.push(doc[i].name);
+      idList.push(doc[i].id);
+    }
+  })
+  Card.fetch(function(err,doc) {
+    for(var i=0;i<doc.length;i++) {
+      cardList.push(doc[i].cardID);
+    }
+  })
+  Detail.fetch(function(err,docs) {
+    console.log(docs);
+  })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(usersList);
+  console.log(idList);
+  console.log(cardList);
   if(req.session.user) {
     req.session.user = "";
   }
@@ -267,6 +267,7 @@ router.post('/register', function(req, res, next) {
   })
   console.log(error);
   if(error != 0) {
+    req.session.error = error;
     return res.json({
       error: error
     })
@@ -594,6 +595,7 @@ router.post('/phoneRecharge', function(req, res, next) {
           detail.save(function(err) {
             if(err) throw err;
             else {
+              console.log(detail);
               res.json({
                 success: 0
               })
@@ -603,6 +605,20 @@ router.post('/phoneRecharge', function(req, res, next) {
       })//save card
     }
   })//findOne card
+})
+
+router.post('/getDetail', function(req, res, next) {
+  var _cardID = req.body.cardID;
+  console.log(_cardID);
+  Detail.findById(_cardID, function(err, details) {
+    if(err) throw err;
+    else {
+      console.log(details);
+      res.json({
+        details: details
+      })
+    }
+  })// findById
 })
 
 

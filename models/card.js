@@ -12,13 +12,13 @@ var Card = db.model('Card',CardSchema)
 //     console.log("delete success");
 //   }
 // });
-Card.fetch(function(err, cards) {
-  if (cards == 0) {
-    console.log(err);
-  } else {
-    console.log("cards:");
-    console.log(cards);
-  }
-})
+// Card.fetch(function(err, cards) {
+//   if (cards == 0) {
+//     console.log(err);
+//   } else {
+//     console.log("cards:");
+//     console.log(cards);
+//   }
+// })
 
 module.exports = Card

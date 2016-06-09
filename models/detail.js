@@ -12,13 +12,13 @@ var Detail = db.model('Detail',DetailSchema)
 //     console.log("delete success");
 //   }
 // });
-Detail.fetch(function(err, details) {
-  if (cards == 0) {
-    console.log(err);
-  } else {
-    console.log("details:");
-    console.log(details);
-  }
-})
+// Detail.fetch(function(err, details) {
+//   if (details == 0) {
+//     console.log(err);
+//   } else {
+//     console.log("details:");
+//     console.log(details);
+//   }
+// })
 
 module.exports = Detail
