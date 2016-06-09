@@ -235,41 +235,8 @@
                 </tbody>
               </table>
               <table class="full-table detail-table">
-                <thead>
-                  <tr>
-                    <th>
-                      交易日期
-                    </th>
-                    <th>
-                      交易方式
-                    </th>
-                    <th>
-                      支出金额
-                    </th>
-                    <th>
-                      收入金额
-                    </th>
-                    <th>
-                      对方卡号
-                    </th>
-                    <th>
-                      对方户名
-                    </th>
-                    <th>
-                      余额
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                <tbody class="detail-list">
+
                 </tbody>
               </table>
             </div>
@@ -437,8 +404,12 @@
     <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="/js/user.js"></script>
+
     <script type="text/javascript">
+      var height = $(".content-list").height();
+      console.log(height);
+      $(".detail-table").height(height*0.7);
+
       var cards = [];
       var j = 0;
       <% for(var i =0;i < cards.length;i++) { %>
@@ -462,7 +433,14 @@
         var _cardID = $(".selCardId-detail").find("option:selected").text();
         console.log(_cardID);
         $(".date-cardID").text(_cardID);
+
+      })
+      $(".selCardId-detail").change(function(e) {
+        var _cardID = $(".selCardId-detail").find("option:selected").text();
+        console.log(_cardID);
+        $(".date-cardID").text(_cardID);
       })
     </script>
+    <script src="/js/user.js"></script>
   </body>
 </html>

@@ -4,6 +4,37 @@ $(document).ready(function(){
       var pattern = /^1[34578]\d{9}$/;
       return pattern.test(phone);
   }
+  //initDetail
+  function initDetail(data) {
+    var detail = $(".detail-list");
+    detail.find("tr").remove();
+    detail.append(
+      '<tr>'+
+        '<th>交易日期</th>'+
+        '<th>交易方式</th>'+
+        '<th>支出金额</th>'+
+        '<th>收入金额</th>'+
+        '<th>对方卡号</th>'+
+        '<th>对方户名</th>'+
+        '<th>余额</th>'+
+      '</tr>'
+    );
+    console.log(data);
+    for(var i=0;i<data.length;i++) {
+      detail.append(
+        '<tr>'+
+        '<td>'+ data[i].date +'</td>'+
+        '<td>'+ data[i].method +'</td>'+
+        '<td>'+ data[i].out +'</td>'+
+        '<td>'+ data[i].in +'</td>'+
+        '<td>'+ data[i].opCard +'</td>'+
+        '<td>'+ data[i].opName +'</td>'+
+        '<td>'+ data[i].balance +'</td>'+
+        '</tr>'
+      );
+    }
+
+  }
 
   //Detail
   function detail(e) {
@@ -17,7 +48,7 @@ $(document).ready(function(){
       type: 'POST',
       data: data,
       success: function(data) {
-        console.log(data);
+        initDetail(data.details);
         console.log("get detail success");
       },
       error: function(data) {
@@ -25,6 +56,9 @@ $(document).ready(function(){
       }
     })
   }
+  $(".selCardId-detail").change(function(e) {
+    detail();
+  })
 
   //检测登录 PS:这个请求会在登出后点击后退是服务器端接收一个get /user的请求？？
   $.ajax({
@@ -138,7 +172,7 @@ $(document).ready(function(){
     console.log(transNum);
     console.log(toID);
     if(toID||toName||transNum) {
-      if(transNum > fromIDBal) {
+      if(parseInt(transNum) > parseInt(fromIDBal)) {
         console.log(transNum);
         console.log(fromIDBal);
         alert("你还想转多少？");
@@ -157,7 +191,8 @@ $(document).ready(function(){
             location.href='/user';
           },
           error: function(data) {
-            alert(data);
+            console.log(data);
+            alert("转账失败: "+data.responseJSON.error);
           }
         })
       }
@@ -190,7 +225,7 @@ $(document).ready(function(){
             location.href="/user";
           },
           error: function(data) {
-            alert("充值失败");
+            alert("充值失败: "+ data.responseJSON.error);
           }
         })//ajax
       }

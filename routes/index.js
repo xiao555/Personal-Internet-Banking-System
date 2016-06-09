@@ -26,9 +26,7 @@ var moment = require('../public/js/moment');
       cardList.push(doc[i].cardID);
     }
   })
-  Detail.fetch(function(err,docs) {
-    console.log(docs);
-  })
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -483,16 +481,21 @@ router.delete('/delUser', function(req, res, next) {
 				console.log(err);
 				res.json({error: 0});
 			} else {
-        Card.remove({trueName: req.session.user.trueName},function(err, doc) {
+        Card.remove({trueName: req.session.user.trueName},function(err, docs) {
           if(err) {
             console.log(err);
             res.json({error: 0});
           } else {
-            console.log("删除成功");
-            req.session.success = "删除成功";
-    				res.json({success: 0});
+            Detail.remove({trueName: req.session.user.trueName},function(err, docs) {
+              if(err) throw err;
+              else {
+                console.log("删除成功");
+                req.session.success = "删除成功";
+          			res.json({success: 0});
+              }
+            })// Detail remove
           }
-        })
+        })//card remove
 			}
 		})
 })
@@ -520,6 +523,11 @@ router.post('/transfer', function(req, res, next) {
               error: "户名与卡号不对应"
             })
           } else {
+            if(fromcard.balance < parseInt(_transNum)) {
+              return res.send(404,{
+                error: "余额不足",
+              });
+            }
             fromcard.balance = fromcard.balance-parseInt(_transNum);
             tocard.balance = tocard.balance+parseInt(_transNum);
             console.log(fromcard.balance);
@@ -531,6 +539,7 @@ router.post('/transfer', function(req, res, next) {
                   if(err) throw err;
                   else {
                     var detail1 = new Detail;
+                    detail1.trueName = req.session.user.trueName;
                     detail1.cardID = _fromID;
                     detail1.date = moment().format('L');//01/01/2016
                     detail1.method = "转账";
@@ -540,6 +549,7 @@ router.post('/transfer', function(req, res, next) {
                     detail1.opName = _toName;
                     detail1.balance = fromcard.balance;
                     var detail2 = new Detail;
+                    detail2.trueName = req.session.user.trueName;
                     detail2.cardID = _toID;
                     detail2.date = moment().format('L');//01/01/2016
                     detail2.method = "转账";
@@ -579,11 +589,17 @@ router.post('/phoneRecharge', function(req, res, next) {
   Card.findOne(cardID, function(err, card) {
     if(err) throw err;
     else {
+      if(card.balance < parseInt(money)) {
+        return res.send(404,{
+          error: "余额不足",
+        });
+      }
       card.balance -= parseInt(money);
       card.save(function(err) {
         if(err) throw err;
         else {
           var detail = new Detail;
+          detail.trueName = req.session.user.trueName;
           detail.cardID = cardID;
           detail.date = moment().format('L');
           detail.method = "手机充值";

@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var DetailSchema = new mongoose.Schema({
   cardID: String,
+  trueName: String,
   date: String,
   method: String,
   out: Number,
