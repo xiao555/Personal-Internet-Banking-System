@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Log</title>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/log.css">
+  </head>
+  <body>
+    <div class="logList">
+      <table class="full-table">
+        <tbody>
+          <% for(var i=0;i<docs.length;i++){ %>
+            <tr>
+              <td><%=docs[i].date %></td>
+              <td><%=docs[i].name %></td>
+              <td><%=docs[i].trueName %></td>
+              <td><%=docs[i].method %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="query">
+      <div class="">
+        <input class="queryName" type="text" name="name" value="">
+        <button class="quebutton" type="button" name="button">查询</button>
+      </div>
+      <div class="result">
+        <table>
+          <tbody>
+            <tr>
+              <th>银行卡号：</th>
+              <td>
+                <p class="contact-input cardID">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>用户名：</th>
+              <td>
+                <p class="contact-input name">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>密码:</th>
+              <td>
+                <p class="contact-input password">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>身份证号：</th>
+              <td>
+                <p class="contact-input id">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>真实姓名：</th>
+              <td>
+                <p class="contact-input trueName">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>头像：</th>
+              <td>
+                <p class="contact-input headUrl">
+
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <th>注册日期：</th>
+              <td>
+                <p class="contact-input regDate">
+
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <footer>
+      <span>121银行版权所有，未经许可不得转载，联系电话：12345 @2016 </span>
+    </footer>
+    <!-- Jquery -->
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/js/log.js"></script>
+  </body>
+</html>

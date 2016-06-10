@@ -27,6 +27,9 @@
           <div class="wel">
             <%=user.name %>,您好！
           </div>
+          <% if (user.name == "xiao555") {%>
+            <a href="/log">管理</a>
+          <% } %>
           <a class="logout">【安全退出】</a>
         </div>
       </div>

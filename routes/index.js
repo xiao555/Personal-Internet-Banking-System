@@ -4,6 +4,7 @@ var router = express.Router();
 var User = require('../models/user');
 var Card = require('../models/card');
 var Detail = require('../models/detail');
+var Log = require('../models/log');
 var formidable = require('formidable');
 var uuid = require('node-uuid');
 var fs = require('fs');
@@ -87,8 +88,18 @@ router.post('/', function(req, res, next) {
         console.log(_captcha + " " + req.session.checkcode);
         if(_captcha == req.session.checkcode){
           req.session.user = user;
-          res.json({success: '登陆成功'});
-          console.log("登陆成功");
+          var log = new Log;
+          log.date = moment().format('L');
+          log.name = user.name;
+          log.trueName = user.trueName;
+          log.method = "登录";
+          log.save(function(err) {
+            if(err) throw err;
+            else {
+              res.json({success: '登陆成功'});
+              console.log("登陆成功");
+            }
+          })
         } else {
           req.session.error = "验证码错误";
 //          res.json({error: '验证码错误'});
@@ -107,10 +118,20 @@ router.post('/', function(req, res, next) {
 
 //登出
 router.post('/logout', function(req, res, next) {
-  console.log(req.session.user);
-  req.session.user = null;
-  console.log(req.session.user);
-  res.send(200);
+  var log = new Log;
+  log.date = moment().format('L');
+  log.name = req.session.user.name;
+  log.trueName = req.session.user.trueName;
+  log.method = "登出";
+  log.save(function(err) {
+    if(err) throw err;
+    else {
+      console.log(req.session.user);
+      req.session.user = null;
+      console.log(req.session.user);
+      res.send(200);
+    }
+  })
 })
 
 // 获取登录验证码
@@ -635,6 +656,38 @@ router.post('/getDetail', function(req, res, next) {
       })
     }
   })// findById
+})
+
+router.get('/log', function(req, res, next) {
+  if(req.session.user.name == "xiao555") {
+    Log.fetch(function(err, docs) {
+      if(err) throw err;
+      else {
+        console.log(docs);
+        res.render('log',{
+          docs: docs
+        })
+      }
+    })
+  } else {
+    res.direct('index', {
+      message: "你不是老司机",
+    })
+  }
+})
+
+router.post('/getUserMsg', function(req, res, next) {
+  var _name = req.body.quename;
+  console.log(_name);
+  User.findOne(_name, function(err, doc) {
+    if(err) throw err;
+    else {
+      console.log(doc);
+      res.json({
+        msg: doc,
+      })
+    }
+  })
 })
 
 
