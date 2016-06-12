@@ -89,7 +89,7 @@ router.post('/', function(req, res, next) {
         if(_captcha == req.session.checkcode){
           req.session.user = user;
           var log = new Log;
-          log.date = moment().format('L');
+          log.date = moment().format('lll');
           log.name = user.name;
           log.trueName = user.trueName;
           log.method = "登录";
@@ -119,7 +119,7 @@ router.post('/', function(req, res, next) {
 //登出
 router.post('/logout', function(req, res, next) {
   var log = new Log;
-  log.date = moment().format('L');
+  log.date = moment().format('lll');
   log.name = req.session.user.name;
   log.trueName = req.session.user.trueName;
   log.method = "登出";
@@ -269,7 +269,7 @@ router.post('/register', function(req, res, next) {
       _id = req.body.id,
       _trueName = req.body.trueName,
       _captcha = req.body.captcha,
-      _regDate = moment().format('L'); //01/01/2016
+      _regDate = moment().format('lll'); //01/01/2016
   console.log("注册：" + _name);
   //检验是否已经存在
   var error = [];
@@ -312,13 +312,21 @@ router.post('/register', function(req, res, next) {
           card.save(function(err) {
             if (err) throw err;
             else {
-              console.log("save card success!");
-              console.log("注册成功");
-    					req.session.success = "注册成功";
-    					return res.redirect('/');
+              var log = new Log;
+              log.date = moment().format('lll');
+              log.name = _name;
+              log.trueName = _trueName;
+              log.method = "注册";
+              log.save(function(err) {
+                if(err) throw err;
+                else {
+                  console.log("注册成功");
+        					req.session.success = "注册成功";
+        					return res.redirect('/');
+                }
+              })
             }
           })
-
 				}
 				});
   } else {
@@ -562,7 +570,7 @@ router.post('/transfer', function(req, res, next) {
                     var detail1 = new Detail;
                     detail1.trueName = req.session.user.trueName;
                     detail1.cardID = _fromID;
-                    detail1.date = moment().format('L');//01/01/2016
+                    detail1.date = moment().format('lll');//01/01/2016
                     detail1.method = "转账";
                     detail1.out = parseInt(_transNum);
                     detail1.in = 0;
@@ -572,7 +580,7 @@ router.post('/transfer', function(req, res, next) {
                     var detail2 = new Detail;
                     detail2.trueName = req.session.user.trueName;
                     detail2.cardID = _toID;
-                    detail2.date = moment().format('L');//01/01/2016
+                    detail2.date = moment().format('lll');//01/01/2016
                     detail2.method = "转账";
                     detail2.out = 0;
                     detail2.in = parseInt(_transNum);
@@ -622,7 +630,7 @@ router.post('/phoneRecharge', function(req, res, next) {
           var detail = new Detail;
           detail.trueName = req.session.user.trueName;
           detail.cardID = cardID;
-          detail.date = moment().format('L');
+          detail.date = moment().format('lll');
           detail.method = "手机充值";
           detail.out = parseInt(money);
           detail.in = 0;
