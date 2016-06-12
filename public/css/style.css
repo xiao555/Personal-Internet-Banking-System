@@ -192,6 +192,11 @@ main {
 	cursor: pointer;
 }
 
+.login-btn:hover {
+	font-size: 18px;
+	line-height: 30px;
+}
+
 .to-reg {
 	font-size: 14px;
   opacity: .8;

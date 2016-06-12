@@ -338,6 +338,12 @@ th {
   letter-spacing: 4px;
 }
 
+.button:hover {
+  font-size: 20px;
+  line-height: 40px;
+  padding: 0;
+}
+
 /*list2*/
 .content-list {
   color: #000;
