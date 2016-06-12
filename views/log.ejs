@@ -10,85 +10,98 @@
   </head>
   <body>
     <div class="logList">
-      <table class="full-table">
-        <tbody>
-          <% for(var i=0;i<docs.length;i++){ %>
-            <tr>
-              <td><%=docs[i].date %></td>
-              <td><%=docs[i].name %></td>
-              <td><%=docs[i].trueName %></td>
-              <td><%=docs[i].method %></td>
-            </tr>
-          <% } %>
-        </tbody>
-      </table>
+      <div class="tel">
+        <div class="tel-title">
+          用户日志
+        </div>
+        <div class="tel-content">
+          <table class="full-table">
+            <tbody>
+              <% for(var i=0;i<docs.length;i++){ %>
+                <tr>
+                  <td><%=docs[i].date %></td>
+                  <td><%=docs[i].name %></td>
+                  <td><%=docs[i].trueName %></td>
+                  <td><%=docs[i].method %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
     <div class="query">
-      <div class="">
-        <input class="queryName" type="text" name="name" value="">
-        <button class="quebutton" type="button" name="button">查询</button>
-      </div>
-      <div class="result">
-        <table>
-          <tbody>
-            <tr>
-              <th>银行卡号：</th>
-              <td>
-                <p class="contact-input cardID">
+      <div class="tel">
+        <div class="tel-title">
+          用户信息查询
+        </div>
+        <div class="tel-content">
+          <div class="tel-opt">
+            <input class="queryName" type="text" name="name" value="">
+            <button class="quebutton" type="button" name="button">查询</button>
+          </div>
+          <table class="result">
+            <tbody>
+              <tr>
+                <th>银行卡号：</th>
+                <td>
+                  <p class="contact-input cardID">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>用户名：</th>
-              <td>
-                <p class="contact-input name">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>用户名：</th>
+                <td>
+                  <p class="contact-input name">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>密码:</th>
-              <td>
-                <p class="contact-input password">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>密码:</th>
+                <td>
+                  <p class="contact-input password">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>身份证号：</th>
-              <td>
-                <p class="contact-input id">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>身份证号：</th>
+                <td>
+                  <p class="contact-input id">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>真实姓名：</th>
-              <td>
-                <p class="contact-input trueName">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>真实姓名：</th>
+                <td>
+                  <p class="contact-input trueName">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>头像：</th>
-              <td>
-                <p class="contact-input headUrl">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>头像：</th>
+                <td>
+                  <p class="contact-input headUrl">
 
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <th>注册日期：</th>
-              <td>
-                <p class="contact-input regDate">
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <th>注册日期：</th>
+                <td>
+                  <p class="contact-input regDate">
 
-                </p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <footer>

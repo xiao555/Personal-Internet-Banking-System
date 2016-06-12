@@ -103,6 +103,8 @@ $(document).ready(function(){
   // change pages
   $(".sidebar-fuc li").click(function(e){
     var tar = $(this).attr('target');
+    $(".sidebar-fuc li.active").removeClass('active');
+    $(this).addClass('active');
     if(tar == "list3") detail();
     //console.log(tar);
     //console.log($(".content-list[target="+tar+"]"));
@@ -128,6 +130,7 @@ $(document).ready(function(){
           contentType: false,
           processData: false,
           success: function(data) {
+            alert("上传成功！");
             location.href='/user';
           },
           error: function() {
@@ -155,6 +158,7 @@ $(document).ready(function(){
       type: 'DELETE',
       url: '/delUser',
       success: function(data) {
+        alert("主人，我会想你的。。");
         location.href='/';
       },
       error: function(dara) {
@@ -188,6 +192,7 @@ $(document).ready(function(){
           type: 'POST',
           data: data,
           success: function(data) {
+            alert("转账成功！");
             location.href='/user';
           },
           error: function(data) {

@@ -12,6 +12,7 @@ $(document).ready(function(){
         success:function(data,status) {
           if(status == 'success') {
             console.log("success");
+            alert("添加成功！");
             location.href='/user';
           }
         },

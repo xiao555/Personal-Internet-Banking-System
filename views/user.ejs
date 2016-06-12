@@ -45,7 +45,7 @@
           </div>
           <div class="sidebar-fuc">
             <ul>
-              <li target="list0"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</li>
+              <li class="active" target="list0"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>首页</li>
               <li target="list1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>个人信息</li>
               <li target="list2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>账户查询</li>
               <li target="list3"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>明细查询</li>
@@ -134,183 +134,196 @@
               </div>
             </div>
           </div>
+
           <div class="content-list list1" target="list1">
-            <div class="list-title">
-              个人信息
+            <div class="inner-list">
+              <div class="tel">
+                <div class="list-title tel-title">
+                  个人信息
+                </div>
+                <div class="tel-content">
+                  <table>
+                    <tbody>
+                      <% for(var i=0;i < cards.length;i++) { %>
+                      <tr>
+                        <th>银行卡号：</th>
+                        <td>
+                            <%=cards[i].cardID %>
+                        </td>
+                      </tr>
+                      <% } %>
+                      <tr>
+                        <th>用户名：</th>
+                        <td>
+                            <%=user.name %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>身份证号：</th>
+                        <td>
+                          <%=user.id %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>真实姓名：</th>
+                        <td>
+                          <%=user.trueName %>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="user-head tel">
+                <div class="tel-title list-title">
+                  用户头像
+                </div>
+                <div class="tel-content">
+                  <img id="user-head" src="/upload/<%=user.headUrl %>" alt="head" />
+                  <input type="file" class="img-file" name="img" /><br>
+                  <a  class="choosefile" onclick="$('.img-file').click()" href="javascript:;" >选择文件</a>
+                  <div style="width:100%;text-align: center;"><=500k</div>
+                  <button type="button" class="upload-head" name="button" >上传头像</button>
+                  <% if (message) { %>
+                    <div class="msg"><%= message %> </div>
+                  <% } %>
+                </div>
+              </div>
             </div>
-            <table>
-              <tbody>
-                <% for(var i=0;i < cards.length;i++) { %>
-                <tr>
-                  <th>银行卡号：</th>
-                  <td>
-                    <p class="contact-input">
-                      <input type="text" name="cardID" value="<%=cards[i].cardID %>" disabled="disabled">
-                    </p>
-                  </td>
-                </tr>
-                <% } %>
-                <tr>
-                  <th>用户名：</th>
-                  <td>
-                    <p class="contact-input">
-                      <input type="text" name="name" value="<%=user.name %>" disabled="disabled">
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <th>身份证号：</th>
-                  <td>
-                    <p class="contact-input">
-                      <input type="text" name="id" value="<%=user.id %>" disabled="disabled">
-                    </p>
-                  </td>
-                </tr>
-                <tr>
-                  <th>真实姓名：</th>
-                  <td>
-                    <p class="contact-input">
-                      <input type="text" name="trueName" value="<%=user.trueName %>" disabled="disabled">
-                    </p>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="user-head">
-              <img id="user-head" src="/upload/<%=user.headUrl %>" alt="head" />
-              <input type="file" class="img-file" name="img" /><br>
-              <a onclick="$('.img-file').click()" href="javascript:;">选择文件</a>
-              <span><=500k</span>
-              <button type="button" class="upload-head" name="button" >上传头像</button>
-              <% if (message) { %>
-                <div class="msg"><%= message %> </div>
-              <% } %>
-            </div>
+
             <button type="button" class="button modifiUserMsg" name="button">修改</button>
-            <button type="button" class="button addCard" name="button">添加其他银行卡</button>
+            <button type="button" class="button addCard" name="button">添加银行卡</button>
             <button type="button" class="button" name="button" data-toggle="modal"
    data-target="#myModal">删除账户</button>
           </div>
+
           <div class="content-list" target="list2">
-            <div class="bal-query">
-              <table>
-                <div class="bal-title">
+            <div class="bal-query tel">
+              <div class="tel-title bal-title">
                   银行卡账户
-                </div>
-                <thead>
-                  <tr>
-                    <td>账号</td>
-                    <td>户名</td>
-                    <td>别名</td>
-                    <td>余额</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% for(var i=0;i < cards.length;i++) { %>
+              </div>
+              <div class="tel-content">
+                <table>
+                  <thead>
                     <tr>
-                      <td><%=cards[i].cardID %></td>
-                      <td><%=user.trueName %></td>
-                      <td><%=user.name %></td>
-                      <td><%=cards[i].balance %></td>
+                      <td>账号</td>
+                      <td>户名</td>
+                      <td>别名</td>
+                      <td>余额</td>
                     </tr>
-                  <% } %>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <% for(var i=0;i < cards.length;i++) { %>
+                      <tr>
+                        <td><%=cards[i].cardID %></td>
+                        <td><%=user.trueName %></td>
+                        <td><%=user.name %></td>
+                        <td><%=cards[i].balance %></td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
           <div class="content-list" target="list3">
-            <div class="inner-list">
-              <table class="full-table">
-                <tbody>
-                  <th>
-                    请选择卡号：
-                  </th>
-                  <td>
-                    <label>
-                      <select class="selCardId-detail" name="">
-                        <% for(var i = 0;i < cards.length;i++) { %>
-                        <option value="option"><%=cards[i].cardID %></option>
-                        <% } %>
-                      </select>
-                    </label>
-                  </td>
-                </tbody>
-              </table>
-              <table class="full-table detail-table">
-                <tbody class="detail-list">
+            <div class="tel detail-tel">
+              <div class="tel-title">
+                明细查询
+              </div>
+              <div class="tel-content">
+                <div class="tel-opt">
+                  请选择卡号：
+                  <label>
+                    <select class="selCardId-detail" name="">
+                      <% for(var i = 0;i < cards.length;i++) { %>
+                      <option value="option"><%=cards[i].cardID %></option>
+                      <% } %>
+                    </select>
+                  </label>
+                </div>
+                <table class="detail-table">
+                  <tbody class="detail-list">
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
           <div class="content-list" target="list4">
             <div class="transfer-in">
               <div class="card">
-                <table class="full-table">
-                  <tbody>
-                    <th>
-                      请选择卡号：
-                    </th>
-                    <td>
-                      <label>
-                        <select class="selCardId" name="">
-                          <% for(var i = 0;i < cards.length;i++) { %>
-                          <option value="option"><%=cards[i].cardID %></option>
-                          <% } %>
-                        </select>
-                      </label>
-                    </td>
-                  </tbody>
-                </table>
-                <table class="full-table">
-                  <thead>
-                    <div class="">
-                      付款人信息
-                    </div>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>转出卡号</th>
-                      <td id="cardID"><%=cards[0].cardID %></td>
-                    </tr>
-                    <tr>
-                      <th>户名</th>
-                      <td><%=user.trueName %></td>
-                    </tr>
-                    <tr>
-                      <th>可用余额</th>
-                      <td id="balance"><%=cards[0].balance %></td>
-                    </tr>
-                    <tr>
-                      <th>转账金额</th>
-                      <td>
-                        <input type="text" name="transferNum" value=""></td>
-                    </tr>
-                  </tbody>
-                </table>
-                <table class="full-table">
-                  <thead>
-                    <div class="">
-                      收款人信息
-                    </div>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th>收款卡号</th>
-                      <td id="cardID">
-                        <input type="text" name="transferID" value=""></td>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>户名</th>
-                      <td>
-                        <input type="text" name="transferName" value=""></td>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="tel">
+                  <div class="tel-title">
+                    转账卡号
+                  </div>
+                  <div class="tel-content">
+                    <span class="add">请选择卡号：</span>
+
+                    <label>
+                      <select class="selCardId" name="">
+                        <% for(var i = 0;i < cards.length;i++) { %>
+                        <option value="option"><%=cards[i].cardID %></option>
+                        <% } %>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="tel">
+                  <div class="tel-title">
+                    付款人信息
+                  </div>
+                  <div class="tel-content">
+                    <table class="full-table">
+                      <tbody>
+                        <tr>
+                          <th>转出卡号</th>
+                          <td id="cardID"><%=cards[0].cardID %></td>
+                        </tr>
+                        <tr>
+                          <th>户名</th>
+                          <td><%=user.trueName %></td>
+                        </tr>
+                        <tr>
+                          <th>可用余额</th>
+                          <td id="balance"><%=cards[0].balance %></td>
+                        </tr>
+                        <tr>
+                          <th>转账金额</th>
+                          <td>
+                            <input type="text" name="transferNum" value=""></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="tel">
+                  <div class="tel-title">
+                    收款人信息
+                  </div>
+                  <div class="tel-content">
+                    <table class="full-table">
+                      <tbody>
+                        <tr>
+                          <th>收款卡号</th>
+                          <td id="cardID">
+                            <input type="text" name="transferID" value=""></td>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>户名</th>
+                          <td>
+                            <input type="text" name="transferName" value=""></td>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
                 <button class="button transfer" type="button" name="submit">转账</button>
               </div>
             </div>
@@ -318,48 +331,53 @@
 
           <div class="content-list" target="list5">
             <div class="inner-list">
-              <table class="full-table">
-                <tbody>
-                  <th>
-                    请选择卡号：
-                  </th>
-                  <td>
-                    <label>
-                      <select class="selCardId-phone" name="">
-                        <% for(var i = 0;i < cards.length;i++) { %>
-                        <option value="option"><%=cards[i].cardID %></option>
-                        <% } %>
-                      </select>
-                    </label>
-                  </td>
-                </tbody>
-              </table>
-              <table class="full-table">
-                <thead>
-                  <span>充值信息</span>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>
-                      手机号码：
-                    </th>
-                    <td>
-                      <input type="text" name="phoneNum" value="">
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>
-                      充值金额：
-                    </th>
-                    <td>
-                      <input type="radio" name="money" value="20">20</input>
-                      <input type="radio" name="money" value="50">50</input>
-                      <input type="radio" name="money" value="100">100</input>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <button class="button" type="button" name="phoneRecharge">充值</button>
+              <div class="tel">
+                <div class="tel-title">
+                  充值卡号
+                </div>
+                <div class="tel-content">
+                  请选择卡号：
+                  <label>
+                    <select class="selCardId-phone" name="">
+                      <% for(var i = 0;i < cards.length;i++) { %>
+                      <option value="option"><%=cards[i].cardID %></option>
+                      <% } %>
+                    </select>
+                  </label>
+                </div>
+              </div>
+
+              <div class="tel">
+                <div class="tel-title">
+                  充值信息
+                </div>
+                <div class="tel-content">
+                  <table class="full-table">
+                    <tbody>
+                      <tr>
+                        <th>
+                          手机号码：
+                        </th>
+                        <td>
+                          <input type="text" name="phoneNum" value="">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>
+                          充值金额：
+                        </th>
+                        <td>
+                          <input type="radio" name="money" value="20">20</input>
+                          <input type="radio" name="money" value="50">50</input>
+                          <input type="radio" name="money" value="100">100</input>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <button class="button middle" type="button" name="phoneRecharge">充值</button>
             </div>
           </div>
 
@@ -404,9 +422,8 @@
       <span>121银行版权所有，未经许可不得转载，联系电话：12345 @2016 </span>
     </footer>
     <!-- Jquery -->
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-	  <script src="http://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-	  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+	  <script src="/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
       var height = $(".content-list").height();

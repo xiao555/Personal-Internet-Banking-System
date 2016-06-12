@@ -2,10 +2,11 @@ html {
   color: #fff;
   height: 100%;
   overflow-y: hidden;
+  min-width: 900px;
 }
 body {
   color: #fff;
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -15,12 +16,38 @@ body {
   display: none;
 }
 
+.tel {
+  background: #fff;
+  border-radius: 8px;
+  box-sizing: border-box;
+  border: 1px solid #d7d5d6;
+  box-shadow: 1px 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.tel-title {
+  border-bottom: 1px solid #e6e6e8;
+  color: #aaa;
+  background: #f4f5f6;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+}
+
+.tel-content {
+  padding: 20px 20px;
+}
+
+.tel-opt {
+  border-bottom: 1px solid #2189bf;
+  text-align: center;
+}
+
 header {
   height: 12%;
   color: #fff;
   border-bottom: 1px solid #c7c7c7;
   background-color: #2189bf;
-  background: url(/img/hjj.jpg);
 }
 
 .inner-header img {
@@ -72,7 +99,7 @@ main {
 }
 
 .sidebar {
-  width: 20%;
+  width: 15%;
   height: 100%;
   float: left;
   background-color:#2a2e3d;
@@ -81,7 +108,7 @@ main {
 .user-img {
   width: 100%;
   height: 100px;
-  background-color: rgba(200,73,73,1);
+  background-color: #383d4e;
 }
 
 .user-img img {
@@ -91,7 +118,7 @@ main {
   top: 50%;
   transform: translate(-50%,-50%);
   border-radius: 50%;
-  background-color: #c7c7c7;
+  background-color: #383d4e;
 }
 
 .user-name {
@@ -104,7 +131,6 @@ main {
 
 .sidebar-fuc {
   padding-top: 20px;
-  padding-left: 20px;
   background-color:#2a2e3d;
   bottom: 0;
 }
@@ -112,9 +138,15 @@ main {
   height: 40px;
   line-height: 40px;
   margin-top: 10px;
+  padding-left: 20px;
   background-color: #2a2e3d;
   letter-spacing: 5px;
   cursor: pointer;
+}
+
+.sidebar-fuc li:hover,
+.sidebar-fuc li.active {
+  background-color: #383d4f;
 }
 
 .sidebar-fuc li span{
@@ -125,10 +157,11 @@ main {
 
 .content {
   position: absolute;
-  left: 20%;
+  padding-top: 50px;
+  left: 15%;
   float: left;
   background-color: #eeeeed;
-  width: 80%;
+  width: 85%;
   height: 100%;
 }
 
@@ -150,11 +183,11 @@ main {
   width:80%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+
 }
 
 .carousel-inner .item img{
-  height: 200px;
+  height: 250px;
   width:100%;
 }
 
@@ -181,23 +214,28 @@ main {
 .news .item {
   height: 30px;
   line-height: 30px;
-  margin-left: 20%;
+  text-align: center;
 }
 
 /*list1-用户信息*/
 .list1 {
   color: #000;
 }
+.list1 .tel:first-child {
+  width: 60%;
+  float: left;
+}
 
 .list-title {
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 50px;
+  line-height: 50px;
+  letter-spacing: 10px;
   text-align: center;
-  font-size: 16px;
+  font-size: 20px;
 }
 table {
-  width: 60%;
+  width: 100%;
   border-spacing: 0;
   border-collapse: inherit;
   border-left: 1px solid #c7c7c7;
@@ -223,10 +261,27 @@ th {
 
 /*头像*/
 .user-head {
-  position: absolute;;
-  width: 80px;
-  top: 20px;
-  right: 20px;
+  position: relative;
+  float: left;
+  width: 30%;
+  margin-left: 20px;
+}
+
+#user-head {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.upload-head {
+  height: 30px;
+  line-height: 30px;
+  background-color: #2189bf;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 4px;
 }
 
 .user-head .img-file {
@@ -236,15 +291,21 @@ th {
   left: -200px;
 }
 
-.user-head a {
+.choosefile {
   display: block;
-  margin-top: 20px;
+  height: 30px;
+  line-height: 30px;
+  width: 85px;
+  background-color: #2189bf;
+  margin-top: 10px;
+  border: 0 auto;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #8879f2;
-  color: #fff;
-  text-decoration: none;
-  text-align: center;
+  font-size: 16px;
+  letter-spacing: 4px;
 }
 
 .user-head img {
@@ -262,10 +323,10 @@ th {
 
 .button {
   height: 40px;
-  width: auto;
+  width: 120px;
   padding: 10px 10px 10px 10px;
   margin: 20px 20px 20px 20px;
-  background-color: #8879f2;
+  background-color: #2189bf;
   border: 0;
   border-radius: 5px;
   /*left: 50%;
@@ -293,6 +354,7 @@ th {
 .bal-title {
   height: 40px;
   line-height: 40px;
+  text-align: center;
   font-size: 16px;
 
 }
@@ -301,9 +363,38 @@ th {
   width: 100%;
 }
 
-.transfer {
-  left: 20%;
+.transfer,
+.middle {
+  left: 50%;
+  transform: translateX(-50%);
 }
+.transfer-in .tel {
+  margin-top: 10px;
+}
+
+.transfer-in .tel-content {
+  padding: 5px 20px;
+}
+
+
+.transfer-in .tel-title,
+.content-list[target='list5'] .tel-title {
+  height: 30px;
+  line-height: 30px;
+  font-size: 16px;
+}
+.content-list[target='list4'] {
+  top: -50px;
+}
+
+.content-list[target='list5'] .tel{
+  margin-top: 40px;
+}
+
+.add {
+  margin-left: 10px;
+}
+
 /*modal*/
 .modal {
   color: #000;
@@ -312,13 +403,23 @@ th {
 .modal .red {
   background-color: red;
 }
+.detail-tel {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 .detail-table {
   display: block;
-  position: absolute;
+  position: relative;
   overflow-y: scroll;
+}
+
+.detail-table tr,
+.detail-table tbody {
   width: 100%;
 }
+
 .detail-table th {
   width: auto;
 }
@@ -328,7 +429,7 @@ th {
 }
 
 .content-list[target="list3"] {
-  width: 90%;
+  width: 100%;
 }
 
 

@@ -44,6 +44,7 @@ $(document).ready(function(){
         success:function(data,status) {
           if(status == 'success') {
             console.log("success");
+            alert("修改成功！");
             location.href='/';
           }
         },

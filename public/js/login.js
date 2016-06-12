@@ -46,6 +46,7 @@ $(document).ready(function(){
       success:function(data,status) {
         if(status == 'success') {
           console.log("success");
+          alert("欢迎回来！")
           location.href='/user';
         }
       },
