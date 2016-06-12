@@ -27,4 +27,24 @@ $(document).ready(function(){
       }
     })
   })
+  $(".quetrueName").click(function(e) {
+    var trueName = $(".querytrueName").val();
+    console.log(trueName);
+    var data = {
+      quename: trueName
+    };
+    $.ajax({
+      url: '/getTrueNameMsg',
+      type: 'POST',
+      data: data,
+      success: function(data) {
+        console.log(data);
+        initMsg(data.msg);
+      },
+      error: function(data) {
+        alert("error");
+      }
+    })
+  })
+
 });

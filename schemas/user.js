@@ -23,6 +23,14 @@ UserSchema.statics = {
         cb(null, doc[0]);
       }
     })
+  },
+  findByTrueName: function(val,cb) {
+    this.find({"trueName": val}, function(err, doc) {
+      if(err) return cd(err);
+      else {
+        cb(null, doc[0]);
+      }
+    })
   }
 }
 

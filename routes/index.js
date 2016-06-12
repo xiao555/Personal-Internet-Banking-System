@@ -698,5 +698,19 @@ router.post('/getUserMsg', function(req, res, next) {
   })
 })
 
+router.post('/getTrueNameMsg', function(req, res, next) {
+  var trueName = req.body.quename;
+  console.log((trueName));
+  User.findByTrueName(trueName, function(err, doc) {
+    if(err) throw err;
+    else {
+      console.log(doc);
+      res.json({
+        msg: doc
+      })
+    }
+  })
+})
+
 
 module.exports = router;
